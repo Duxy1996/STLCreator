@@ -94,7 +94,7 @@ def show_stl(name="default"):
     figure = pyplot.figure()
     axes = mplot3d.Axes3D(figure)
     your_mesh = mesh.Mesh.from_file("./"+name+".stl")
-    axes.add_collection3d(mplot3d.art3d.Poly3DCollection(your_mesh.vectors , facecolors='w', linewidths=1, alpha=0.5, edgecolors='#000000'))
+    axes.add_collection3d(mplot3d.art3d.Poly3DCollection(your_mesh.vectors , facecolors='w', linewidths=1, alpha=0.5, edgecolors='#0F0000'))
     scale = your_mesh.points.flatten(-1)
     axes.auto_scale_xyz(scale, scale, scale)
     pyplot.show()
