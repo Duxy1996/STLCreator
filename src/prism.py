@@ -94,7 +94,7 @@ def show_stl(name="default"):
     figure = pyplot.figure()
     axes = mplot3d.Axes3D(figure)
     your_mesh = mesh.Mesh.from_file("./"+name+".stl")
-    axes.add_collection3d(mplot3d.art3d.Poly3DCollection(your_mesh.vectors , facecolors='w', linewidths=1, alpha=0.5, edgecolors='#0F0000'))
+    axes.add_collection3d(mplot3d.art3d.Poly3DCollection(your_mesh.vectors , facecolors='w', linewidths=1, alpha=0.5, edgecolors='#000000'))
     scale = your_mesh.points.flatten(-1)
     axes.auto_scale_xyz(scale, scale, scale)
     pyplot.show()
@@ -124,40 +124,29 @@ def get_faces(longitud=1,lado=4,rotation=0):
     angle = rotation
     for i in range(0,lado):
         vertix_down = [[0,0,0]]
-        xx = (x*math.cos(math.radians(angle))-z*math.sin(math.radians(angle)))
-        zz = (x*math.sin(math.radians(angle))+z*math.cos(math.radians(angle)))
-        vertix_down.append([xx,zz,0])
-        xx = (x*math.cos(math.radians(angle))-(-z)*math.sin(math.radians(angle)))
-        zz = (x*math.sin(math.radians(angle))+(-z)*math.cos(math.radians(angle)))
-        vertix_down.append([xx,zz,0])
-        faces.append(vertix_down)
-
         vertix_up = [[0,0,longitud]]
-        xx = (x*math.cos(math.radians(angle))-z*math.sin(math.radians(angle)))
-        zz = (x*math.sin(math.radians(angle))+z*math.cos(math.radians(angle)))
-        vertix_up.append([xx,zz,longitud])
-        xx = (x*math.cos(math.radians(angle))-(-z)*math.sin(math.radians(angle)))
-        zz = (x*math.sin(math.radians(angle))+(-z)*math.cos(math.radians(angle)))
-        vertix_up.append([xx,zz,longitud])
-        faces.append(vertix_up)
 
-        xx = (x*math.cos(math.radians(angle))-z*math.sin(math.radians(angle)))
-        zz = (x*math.sin(math.radians(angle))+z*math.cos(math.radians(angle)))
+        figure_angle = math.radians(angle)
+
+        xx = (x*math.cos(figure_angle)-z*math.sin(figure_angle))
+        zz = (x*math.sin(figure_angle)+z*math.cos(figure_angle))
         vertix_left = [[xx,zz,longitud]]
-        vertix_left.append([xx,zz,0])
-        xx = (x*math.cos(math.radians(angle))-(-z)*math.sin(math.radians(angle)))
-        zz = (x*math.sin(math.radians(angle))+(-z)*math.cos(math.radians(angle)))
-        vertix_left.append([xx,zz,0])
-        faces.append(vertix_left)
-
-        xx = (x*math.cos(math.radians(angle))-z*math.sin(math.radians(angle)))
-        zz = (x*math.sin(math.radians(angle))+z*math.cos(math.radians(angle)))
         vertix_right = [[xx,zz,longitud]]
-        xx = (x*math.cos(math.radians(angle))-(-z)*math.sin(math.radians(angle)))
-        zz = (x*math.sin(math.radians(angle))+(-z)*math.cos(math.radians(angle)))
+        vertix_left.append([xx,zz,0])
+        vertix_down.append([xx,zz,0])
+        vertix_up.append([xx,zz,longitud])
+        xx = (x*math.cos(figure_angle)-(-z)*math.sin(figure_angle))
+        zz = (x*math.sin(figure_angle)+(-z)*math.cos(figure_angle))
+        vertix_down.append([xx,zz,0])
+        vertix_up.append([xx,zz,longitud])
+        vertix_left.append([xx,zz,0])
         vertix_right.append([xx,zz,longitud])
         vertix_right.append([xx,zz,0])
+        faces.append(vertix_down)
+        faces.append(vertix_up)
+        faces.append(vertix_left)
         faces.append(vertix_right)
+
         angle = angle + b_angle
 
     return faces
